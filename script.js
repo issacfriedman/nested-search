@@ -1,7 +1,4 @@
-const test = 78;
-//this is a test obj
 
-const apiData = [23, 89, 234, 23, 54, 23, "issac"];
 
 const nestedStringSearch = function (data, searchTerm) {
   const res = [];
@@ -33,6 +30,9 @@ const nestedStringSearch = function (data, searchTerm) {
   const set = new Set(res);
   return [...set];
 };
+
+
+
 
 const nestedSearch = function (data, callbackfn) {
   if (typeof callbackfn !== "function")
