@@ -66,3 +66,40 @@ const nestedSearch = function (data, callbackfn) {
   const set = new Set(res);
   return [...set];
 };
+
+
+const nestedMutate = function (data, searchFn) {
+  if (typeof searchFn !== "function")
+    throw "callback peramrter must be a function";
+
+  const search = function (data) {
+    if (typeof data !== "object") {
+      if (searchFn(data)) data = "";
+
+      return;
+    }
+    for (let prop in data) {
+      if (typeof data[prop] !== "object") {
+        if (searchFn(data[prop])) data[prop] = "";
+      }
+      if (Array.isArray(data[prop])) {
+        data[prop].forEach((el) => {
+          if (typeof el !== "object") {
+            if (searchFn(el)) el = "";
+          } else {
+            search(el);
+          }
+        });
+      }
+      if (typeof data[prop] === "object") {
+        search(data[prop]);
+      }
+    }
+  };
+
+  search(data);
+  // const set = new Set(res);
+  // return [...set];
+};
+
+nestedMutate(apiData, (el) => String(el).includes("temp123"));
